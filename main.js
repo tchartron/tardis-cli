@@ -3,9 +3,9 @@ const md5 = require('md5');
 const axios = require('axios');
 require('log-timestamp');
 
-const buttonPressesLogFile = '/home/thomas/dev/javascript/node/';
+const watchDir = '/home/thomas/dev/javascript/node/';
 
-console.log(`Watching for file changes on ${buttonPressesLogFile}`);
+console.log(`Watching for file changes on ${watchDir}`);
 
 //Axios config
 const remoteAddr = "http://192.168.0.24/api";
@@ -18,13 +18,6 @@ this.apiInfos = {};
 this.user = {};
 this.currentTimer = {};
 
-// var loggedAxiosParams = {
-//   baseURL: remoteAddr,
-//   timeout: 1000,
-//   headers: { "Authorization": "Bearer " + token }
-// };
-//Logged axios base configuration
-// var loggedAxios = axios.create(loggedAxiosParams);
 //Try to login to api
 axios({
   method: 'post',
@@ -58,13 +51,13 @@ axios({
 // credits https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/
 let md5Previous = null;
 let fsWait = false;
-fs.watch(buttonPressesLogFile, (event, filename) => {
+fs.watch(watchDir, (event, filename) => {
     if (filename) {
         if (fsWait) return;
         fsWait = setTimeout(() => {
             fsWait = false;
         }, 100);
-        // const md5Current = md5(fs.readFileSync(buttonPressesLogFile));
+        // const md5Current = md5(fs.readFileSync(watchDir));
         // if (md5Current === md5Previous) {
         //     return;
         // }
