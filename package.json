@@ -18,7 +18,8 @@
   },
   "homepage": "https://gitlab.com/ThomasChartron/timeinator-watch#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "log-timestamp": "^0.3.0",
-    "axios": "^0.18.0"
+    "md5": "^2.2.1"
   }
 }
