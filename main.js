@@ -29,9 +29,9 @@ axios({
     password: apiPassword,
   }
 }).then((response) => {
-    console.log('logged')
+    console.log('Welcome maggle this is your token : ');
     console.log(response.data.access_token);
-    token = response.data.access_token
+    token = response.data.access_token;
 }, (error) => {
     console.log(error);
 });
