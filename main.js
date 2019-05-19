@@ -13,7 +13,11 @@ var token = "";
 
 const apiUsername = "thomas.chartron@gmail.com";
 const apiPassword = "thomasthomas";
-var loggedAxios = {};
+this.loggedAxios = {};
+this.apiInfos = {};
+this.user = {};
+this.currentTimer = {};
+
 // var loggedAxiosParams = {
 //   baseURL: remoteAddr,
 //   timeout: 1000,
@@ -33,14 +37,19 @@ axios({
     password: apiPassword,
   }
 }).then((response) => {
-    console.log('Welcome maggle this is your token : ');
+    console.log('Welcome this is your token : ');
     console.log(response.data.access_token);
-    token = response.data.access_token;
-    loggedAxios = axios.create({
-      baseURL: remoteAddr,
-      timeout: 1000,
-      headers: { "Authorization": "Bearer " + token }
+    //Api infos
+    this.apiInfos = response.data;
+    //Logged axios instance base configuration
+    this.loggedAxios = axios.create({
+        baseURL: remoteAddr,
+        timeout: 1000,
+        headers: { "Authorization": "Bearer " + this.apiInfos.access_token }
     });
+    //get user just logged in
+    this.user = getUser(this.loggedAxios);
+
 }, (error) => {
     console.log(error);
 });
@@ -62,23 +71,32 @@ fs.watch(buttonPressesLogFile, (event, filename) => {
         // md5Previous = md5Current;
         console.log(`${filename} file Changed`);
         console.log(`Starting timer !`);
-        startTimer();
+        startTimer(this.loggedAxios);
     }
 });
 
-    //Logged axios base configuration
-// var loggedAxios = axios.create({
-//   baseURL: remoteAddr,
-//   timeout: 1000,
-//   headers: { "Authorization": "Bearer " + token }
-// });
-function startTimer() {
+
+function startTimer(axiosInstance) {
     companyId = 1; //CHANGE THIS
     taskId = 1; //CHANGE THIS
-    loggedAxios.post("/companies/" + companyId + "/tasks/" + taskId + "/timers")
+    axiosInstance.post("/companies/" + companyId + "/tasks/" + taskId + "/timers")
     .then(response => {
         console.log(response.data);
+        this.currentTimer = response.data;
     }, (error) => {
         console.log(error)
     });
 }
+
+function getUser(axiosInstance) {
+    axiosInstance.post("/me")
+    .then(response => {
+        console.log(response.data);
+        // this.user = response.data;
+        return response.data;
+    }, (error) => {
+        console.log(error)
+        return {};
+    });
+}
+
