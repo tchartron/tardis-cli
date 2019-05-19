@@ -13,10 +13,12 @@ var token = "";
 
 const apiUsername = "thomas.chartron@gmail.com";
 const apiPassword = "thomasthomas";
-this.loggedAxios = {};
-this.apiInfos = {};
-this.user = {};
-this.currentTimer = {};
+this.loggedAxios = null;
+this.apiInfos = null;
+this.user = null;
+this.currentTimer = null;
+this.maxInactivity = 10; //config file
+this.secondsOfInactivity = 0;
 
 //Try to login to api
 axios({
@@ -64,21 +66,57 @@ fs.watch(watchDir, (event, filename) => {
         // md5Previous = md5Current;
         console.log(`${filename} file Changed`);
         console.log(`Starting timer !`);
-        startTimer(this.loggedAxios);
+        if(this.currentTimer === null) {
+            startTimer(this.loggedAxios)
+            .then(response => {
+                // console.log(response.data);
+                this.currentTimer = response.data;
+                // return response.data;
+            }, (error) => {
+                console.log(error)
+                return {};
+            });
+            // console.log('HERE' + this.currentTimer)
+        }
+        // console.log(this)
+        //reset inactivity counter
+        this.secondsOfInactivity = 0;
     }
 });
+//Counting inactivity
+inactivity = setInterval(() => {
+    this.secondsOfInactivity++;
+    console.log(this.secondsOfInactivity)
+    console.log(this.currentTimer)
+    if(this.currentTimer !== null && this.secondsOfInactivity > this.maxInactivity) {
+        console.log(this.currentTimer.timer)
+        stopTimer(this.loggedAxios, this.currentTimer)
+        .then(response => {
+            console.log(response.data);
+            // this.currentTimer = response.data;
+            this.currentTimer = null;
+            // return response.data;
+        }, (error) => {
+            console.log(error)
+            // return {};
+        });
+        // this.currentTimer = null;
+    }
+}, 1000);
 
 
 function startTimer(axiosInstance) {
-    companyId = 1; //CHANGE THIS
-    taskId = 1; //CHANGE THIS
-    axiosInstance.post("/companies/" + companyId + "/tasks/" + taskId + "/timers")
-    .then(response => {
-        console.log(response.data);
-        this.currentTimer = response.data;
-    }, (error) => {
-        console.log(error)
-    });
+    console.log('start')
+    let companyId = 1; //CHANGE THIS
+    let taskId = 1; //CHANGE THIS
+    return axiosInstance.post("/companies/" + companyId + "/tasks/" + taskId + "/timers")
+}
+
+function stopTimer(axiosInstance, currentTimer) {
+    console.log('stop')
+    let companyId = 1; //CHANGE THIS
+    let taskId = 1; //CHANGE THIS
+    return axiosInstance.patch("/companies/" + companyId + "/tasks/" + taskId + "/timers/" + currentTimer.timer.id);
 }
 
 function getUser(axiosInstance) {
