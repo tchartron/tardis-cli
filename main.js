@@ -11,6 +11,7 @@ console.log(`Watching for file changes on ${buttonPressesLogFile}`);
 
 //MD5 check for real file change not only saves
 // 100MS delay to emmit change event or it fires to often
+// credits https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/
 let md5Previous = null;
 let fsWait = false;
 fs.watch(buttonPressesLogFile, (event, filename) => {
