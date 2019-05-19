@@ -56,7 +56,7 @@ fs.watch(watchDir, (event, filename) => {
         if (fsWait) return;
         fsWait = setTimeout(() => {
             fsWait = false;
-        }, 100);
+        }, 1000);
         // const md5Current = md5(fs.readFileSync(watchDir));
         // if (md5Current === md5Previous) {
         //     return;
