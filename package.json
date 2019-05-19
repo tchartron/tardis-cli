@@ -1,0 +1,23 @@
+{
+  "name": "timeinator-watch",
+  "version": "1.0.0",
+  "description": "Auto watch filesystem to start / stop timers",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "watch": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/ThomasChartron/timeinator-watch.git"
+  },
+  "author": "Web Expert Business",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/ThomasChartron/timeinator-watch/issues"
+  },
+  "homepage": "https://gitlab.com/ThomasChartron/timeinator-watch#readme",
+  "dependencies": {
+    "log-timestamp": "^0.3.0"
+  }
+}
