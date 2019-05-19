@@ -8,7 +8,7 @@ console.log(`Watching for file changes on ${buttonPressesLogFile}`);
 
 //Axios config
 const remoteAddr = "http://192.168.0.24/api";
-const token = "";
+var token = "";
 const loggedAxios = axios.create({
   baseURL: remoteAddr,
   timeout: 1000,
@@ -17,24 +17,7 @@ const loggedAxios = axios.create({
 
 const apiUsername = "thomas.chartron@gmail.com";
 const apiPassword = "thomasthomas";
-
-
 //Try to login to api
-// var params = JSON.stringify({
-//     email: apiUsername,
-//     password: apiPassword
-// });
-// var headers = {
-//     "Content-Type": "application/json"
-// }
-// axios.post(remoteAddr + "/login", {params, headers})
-// .then((res) => {
-//     console.log('logged')
-//     console.log(res.data.representation);
-// }, (error) => {
-//     console.log(error)
-// });
-
 axios({
   method: 'post',
   url: remoteAddr + '/login',
@@ -45,15 +28,13 @@ axios({
     email: apiUsername,
     password: apiPassword,
   }
-}).then(function (response) {
+}).then((response) => {
     console.log('logged')
     console.log(response.data.access_token);
-});;
-
-// fs.watchFile(buttonPressesLogFile, (curr, prev) => {
-//   console.log(`${buttonPressesLogFile} file Changed`);
-// });
-
+    token = response.data.access_token
+}, (error) => {
+    console.log(error);
+});
 //MD5 check for real file change not only saves
 // 100MS delay to emmit change event or it fires to often
 // credits https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/
