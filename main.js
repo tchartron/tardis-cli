@@ -11,7 +11,7 @@ console.log(`Watching for file changes on ${watchDir}`);
 const remoteAddr = "http://192.168.0.24/api";
 var token = "";
 
-const apiUsername = "thomas.chartron@gmail.com";
+const apiUsername = "thomas.example@example.com";
 const apiPassword = "thomasthomas";
 this.loggedAxios = null;
 this.apiInfos = null;
@@ -107,15 +107,15 @@ inactivity = setInterval(() => {
 
 function startTimer(axiosInstance) {
     console.log('start')
-    let companyId = 1; //CHANGE THIS
-    let taskId = 1; //CHANGE THIS
+    let companyId = 1; //param
+    let taskId = 1; //param
     return axiosInstance.post("/companies/" + companyId + "/tasks/" + taskId + "/timers")
 }
 
 function stopTimer(axiosInstance, currentTimer) {
     console.log('stop')
-    let companyId = 1; //CHANGE THIS
-    let taskId = 1; //CHANGE THIS
+    let companyId = 1; //param
+    let taskId = 1; //param
     return axiosInstance.patch("/companies/" + companyId + "/tasks/" + taskId + "/timers/" + currentTimer.timer.id);
 }
 

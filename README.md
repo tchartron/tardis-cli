@@ -1,3 +1,4 @@
-## Imrovments
- - [ ] Pass directory to watch and corresponding task id as parameter to add timer automatically
- - [ ] Using env file with npm package (must exist) to configure the directory to watch and task corresponding to add timer (https://www.npmjs.com/package/app-settings)
+# Tardis CLI
+This is no longer maintained.  
+Was used to watch a folder using node fs.watch and make post requests to a custom API that records working timers  
+Purpose of this tiny project was to learn and have fun !  

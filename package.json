@@ -1,5 +1,5 @@
 {
-  "name": "timeinator-watch",
+  "name": "tardis-cli",
   "version": "1.0.0",
   "description": "Auto watch filesystem to start / stop timers",
   "main": "main.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/ThomasChartron/timeinator-watch.git"
+    "url": "https://github.com/tchartron/tardis-cli.git"
   },
-  "author": "Web Expert Business",
+  "author": "Thomas Chartron",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/ThomasChartron/timeinator-watch/issues"
+    "url": "https://github.com/tchartron/tardis-cli/issues"
   },
-  "homepage": "https://gitlab.com/ThomasChartron/timeinator-watch#readme",
+  "homepage": "https://github.com/tchartron/tardis-cli.git",
   "dependencies": {
     "axios": "^0.18.0",
     "log-timestamp": "^0.3.0",
